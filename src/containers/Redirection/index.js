@@ -10,7 +10,7 @@ class Redirection extends React.Component {
   };
 
   async componentDidMount() {
-    const response = await axios.get("http://localhost:8080/get_url");
+    const response = await axios.get("https://short-url-chris-bapin.herokuapp.com/get_url");
     await this.setState({ data: response.data });
 
     for (let i = 0; i < this.state.data.length; i++) {
@@ -25,7 +25,7 @@ class Redirection extends React.Component {
     }
 
     await axios.post(
-      "http://localhost:8080/update_url/" + this.props.match.params.shorturl,
+      "https://short-url-chris-bapin.herokuapp.com/update_url/" + this.props.match.params.shorturl,
       {
         visit: this.state.visit,
       }

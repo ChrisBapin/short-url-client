@@ -18,12 +18,17 @@ class Home extends React.Component {
 
   handleSubmit = async () => {
     try {
-      await axios.post("http://localhost:8080/create_url/", {
-        longUrl: this.state.urlChange,
-        visit: 0,
-      });
+      await axios.post(
+        "https://short-url-chris-bapin.herokuapp.com/create_url/",
+        {
+          longUrl: this.state.urlChange,
+          visit: 0,
+        }
+      );
 
-      const responseGet = await axios.get("http://localhost:8080/get_url/");
+      const responseGet = await axios.get(
+        "https://short-url-chris-bapin.herokuapp.com/get_url/"
+      );
 
       this.setState({
         tabUrl: responseGet.data,
@@ -35,7 +40,9 @@ class Home extends React.Component {
 
   async componentDidMount() {
     try {
-      const responseGet = await axios.get("http://localhost:8080/get_url/");
+      const responseGet = await axios.get(
+        "https://short-url-chris-bapin.herokuapp.com/get_url/"
+      );
 
       this.setState({
         tabUrl: responseGet.data,
