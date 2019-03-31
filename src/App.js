@@ -1,12 +1,28 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from "react";
+import "./assets/reset.css";
+import Home from "./containers/Home";
+import Redirection from "./containers/Redirection";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "./App.css";
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <div>test</div>
-      </div>
+      <Router>
+        <div>
+          <Switch>
+            <Route
+              exact={true}
+              path="/"
+              render={props => <Home {...props} />}
+            />
+            <Route
+              path="/:shorturl"
+              render={props => <Redirection {...props} />}
+            />
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }
