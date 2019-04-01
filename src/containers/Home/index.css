@@ -42,6 +42,10 @@
   text-align: left;
 }
 
+.table__main--container table th:first-child {
+  width: 36rem;
+}
+
 .table__main--container table td {
   padding: 1rem;
   max-width: 450px;
@@ -57,4 +61,31 @@
 
 .table__main--container tbody tr a {
   color: #007eff;
+}
+
+@media screen and (max-width: 1060px) {
+  .header--container {
+    padding: 2rem;
+  }
+  .header--container input {
+    max-width: 65%;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .table__main--container.main--container {
+    overflow: auto;
+  }
+  .header--container h1 {
+    font-size: 2rem;
+  }
+  .header--container input {
+    max-width: 42%;
+    font-size: 14px;
+    padding: 10px;
+  }
+  .header--container button {
+    font-size: 14px;
+    padding: 10px;
+  }
 }

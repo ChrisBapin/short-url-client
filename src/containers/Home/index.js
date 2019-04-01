@@ -18,6 +18,13 @@ class Home extends React.Component {
 
   handleSubmit = async () => {
     try {
+      // check if new address already exists
+      for (let i = 0; i < this.state.tabUrl.length; i++) {
+        if (this.state.urlChange === this.state.tabUrl[i].longUrl) {
+          alert("cette adresse url existe déjà");
+        }
+      }
+      // update db with new data of the url
       await axios.post(
         "https://short-url-chris-bapin.herokuapp.com/create_url/",
         {
@@ -26,6 +33,7 @@ class Home extends React.Component {
         }
       );
 
+      // get new url in array
       const responseGet = await axios.get(
         "https://short-url-chris-bapin.herokuapp.com/get_url/"
       );
@@ -40,6 +48,7 @@ class Home extends React.Component {
 
   async componentDidMount() {
     try {
+      // get new url in array
       const responseGet = await axios.get(
         "https://short-url-chris-bapin.herokuapp.com/get_url/"
       );
