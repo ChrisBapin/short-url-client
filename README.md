@@ -46,6 +46,12 @@ git clone https://github.com/ChrisBapin/short-url-client.git
 cd short-url
 ```
 
+Install packages
+
+```bash
+npm install
+```
+
 Start the server:
 
 ```bash
