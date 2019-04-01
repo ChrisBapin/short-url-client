@@ -62,7 +62,7 @@ npm start
 
 - html
 - css
-- [JavaScript](https://developer.mozilla.org/bm/docs/Web/JavaScript)
+- JavaScript
 - [React.js](https://reactjs.org/docs/hello-world.html)
 - [Create React App](https://facebook.github.io/create-react-app/docs/getting-started)
 
