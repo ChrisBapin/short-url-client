@@ -8,6 +8,7 @@ class Home extends React.Component {
     urlChange: "",
     tabUrl: [],
     isLoading: true,
+    visit: "",
   };
 
   handleChange = event => {
@@ -47,6 +48,13 @@ class Home extends React.Component {
     }
   };
 
+  incrementVisit = index => {
+    index.visit = Number(index.visit) + 1;
+    this.setState({
+      visit: index.visit,
+    });
+  };
+
   async componentDidMount() {
     try {
       // get new url in array
@@ -84,7 +92,7 @@ class Home extends React.Component {
           </div>
           <div className="loader--content">
             <div>Chargement en cours, veuillez patienter</div>
-            <div class="lds-hourglass" />
+            <div className="lds-hourglass" />
           </div>
         </div>
       );
@@ -130,7 +138,12 @@ class Home extends React.Component {
                       </a>
                     </td>
                     <td>
-                      <Link to={"/" + url.shortUrl}>{url.baseShortUrl}</Link>
+                      <Link
+                        onClick={() => this.incrementVisit(url)}
+                        to={"/" + url.shortUrl}
+                      >
+                        {url.baseShortUrl}
+                      </Link>
                     </td>
                     <td>{this.state.tabUrl[index].visit}</td>
                   </tr>
