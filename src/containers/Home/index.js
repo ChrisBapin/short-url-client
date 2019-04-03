@@ -7,6 +7,7 @@ class Home extends React.Component {
   state = {
     urlChange: "",
     tabUrl: [],
+    isLoading: true,
   };
 
   handleChange = event => {
@@ -55,6 +56,7 @@ class Home extends React.Component {
 
       this.setState({
         tabUrl: responseGet.data,
+        isLoading: false,
       });
     } catch (error) {
       console.log(error);
@@ -62,6 +64,31 @@ class Home extends React.Component {
   }
 
   render() {
+    if (this.state.isLoading === true) {
+      return (
+        <div>
+          <div className="header__main--container">
+            <div className="header--container main--container">
+              <h1>Simplify your links</h1>
+              <div>
+                <input
+                  type="text"
+                  placeholder="Your original URL here"
+                  name="urlChange"
+                  value={this.state.urlChange}
+                  onChange={this.handleChange}
+                />
+                <button onClick={this.handleSubmit}>Shorten url</button>
+              </div>
+            </div>
+          </div>
+          <div className="loader--content">
+            <div>Chargement en cours, veuillez patienter</div>
+            <div class="lds-hourglass" />
+          </div>
+        </div>
+      );
+    }
     return (
       <div>
         <div className="header__main--container">
