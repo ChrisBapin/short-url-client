@@ -18,6 +18,20 @@ class Home extends React.Component {
     });
   };
 
+  // function to know if url is valid
+  urlValid = str => {
+    const pattern = new RegExp(
+      "^(https?:\\/\\/)?" +
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" +
+        "((\\d{1,3}\\.){3}\\d{1,3}))" +
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" +
+        "(\\?[;&a-z\\d%_.~+=-]*)?" +
+        "(\\#[-a-z\\d_]*)?$",
+      "i"
+    );
+    return !!pattern.test(str);
+  };
+
   handleSubmit = async () => {
     try {
       // check if new address already exists
@@ -26,23 +40,34 @@ class Home extends React.Component {
           alert("cette adresse url existe déjà");
         }
       }
-      // update db with new data of the url
-      await axios.post(
-        "https://short-url-chris-bapin.herokuapp.com/create_url/",
-        {
-          longUrl: this.state.urlChange,
-          visit: 0,
-        }
-      );
 
-      // get new url in array
-      const responseGet = await axios.get(
-        "https://short-url-chris-bapin.herokuapp.com/get_url/"
-      );
+      // check if address is valid
+      if (this.urlValid(this.state.urlChange)) {
+        // update db with new data of the url
+        await axios.post(
+          "https://short-url-chris-bapin.herokuapp.com/create_url/",
+          {
+            //if longUrl not includes http or https => add http:// in the url
+            longUrl:
+              this.state.urlChange.includes("http") ||
+              this.state.urlChange.includes("https")
+                ? this.state.urlChange
+                : "http://" + this.state.urlChange,
+            visit: 0,
+          }
+        );
 
-      this.setState({
-        tabUrl: responseGet.data,
-      });
+        // get new url in array
+        const responseGet = await axios.get(
+          "https://short-url-chris-bapin.herokuapp.com/get_url/"
+        );
+
+        this.setState({
+          tabUrl: responseGet.data,
+        });
+      } else {
+        alert("url is not valid");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -139,6 +164,7 @@ class Home extends React.Component {
                     </td>
                     <td>
                       <Link
+                        target="_blank"
                         onClick={() => this.incrementVisit(url)}
                         to={"/" + url.shortUrl}
                       >
